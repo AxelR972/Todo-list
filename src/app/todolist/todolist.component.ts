@@ -12,11 +12,12 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrl: './todolist.component.css'
 })
 export class TodolistComponent {
-  taskArray = [{ taskName: 'Brush teeth', isCompleted: false }];
+  taskArray = [{ taskName: 'Brush teeth', isCompleted: false, isEditable: false }];
   onSubmit(form: NgForm) {
     this.taskArray.push({
       taskName: form.controls['task'].value,
-      isCompleted: false
+      isCompleted: false,
+      isEditable : false,
     })
 
     form.reset();
@@ -28,5 +29,14 @@ export class TodolistComponent {
 
   onCheck(index: number) {
     this.taskArray[index].isCompleted = !this.taskArray[index].isCompleted;
+  }
+
+  onEdit(index: number) {
+   this.taskArray[index].isEditable = true;
+  }
+
+  onSave(index: number, newtask: string) {
+    this.taskArray[index].taskName = newtask;
+    this.taskArray[index].isEditable = false;
   }
 }
