@@ -5,18 +5,18 @@
   <form id="submitForm" (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
     <div class="form-group">
       <input type="text" class="form-control" id="task" placeholder="Enter task" ngModel name="task" required>
-      <small *ngIf="taskForm.invalid && taskForm.dirty" id="errorMessage" class="form-text text-danger">Required field.</small>
+      <small *ngIf="taskForm.invalid && taskForm.dirty" id="errorMessage" class="form-text text-danger">Required
+        field.</small>
     </div>
 
     <button [disabled]="taskForm.invalid" id="submitButton" type="submit" class="btn btn-primary">Submit</button>
   </form>
 
   <hr>
-
+  <div class="table-responsive">
   <table class="table">
     <thead>
       <tr>
-
         <th scope="col">Task</th>
         <th scope="col">Completed</th>
         <th scope="col">Delete</th>
@@ -27,15 +27,27 @@
     <tbody>
       <tr *ngFor="let t of taskArray; index as i">
         <td>
-
-      <input #taskinput [ngClass]="{'edit': t.isEditable, 'not-edit': !t.isEditable,'crossed': t.isCompleted}" type="text" class="form-control" id="taskInTable" placeholder="Enter task" value="{{t.taskName}}" [readonly]="!t.isEditable">
+          <input #taskinput
+            [ngClass]="{'edit': t.isEditable, 'not-edit': !t.isEditable,'crossed': t.isCompleted}"
+            type="text"
+            class="form-control w-100"
+            placeholder="Enter task"
+            [value]="t.taskName"
+            [readonly]="!t.isEditable">
         </td>
-        <td><input (change)="onCheck(i)" id="myCheckbox" type="checkbox" [checked]="t.isCompleted"></td>
-        <td><button id="delete" class="btn btn-danger btn-sm" (click)="onDelete(i)">Delete</button></td>
-        <td><button id="edit" class="btn btn-primary btn-sm" (click)="onEdit(i)" [disabled]="t.isEditable">Edit</button></td>
-        <td><button id="save" class="btn btn-success btn-sm" (click)="onSave(i, taskinput.value)" [disabled]="!t.isEditable">Save</button></td>
+        <td>
+          <input (change)="onCheck(i)" id="myCheckbox" type="checkbox" [checked]="t.isCompleted">
+        </td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="onDelete(i)">Delete</button>
+        </td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="onEdit(i)" [disabled]="t.isEditable">Edit</button>
+        </td>
+        <td>
+          <button class="btn btn-success btn-sm" (click)="onSave(i, taskinput.value)" [disabled]="!t.isEditable">Save</button>
+        </td>
       </tr>
-
     </tbody>
   </table>
 </div>
